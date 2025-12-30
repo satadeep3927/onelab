@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "onelab-tts"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Text-to-Speech and Podcast generation library using Chatterbox Turbo TTS"
 readme = "README.md"
 requires-python = ">=3.8, <3.12"
