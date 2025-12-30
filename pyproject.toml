@@ -7,7 +7,7 @@ name = "onelab-tts"
 version = "0.1.0"
 description = "A Text-to-Speech and Podcast generation library using Chatterbox Turbo TTS"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.8, <3.12"
 authors = [
   { name = "OneLab Team", email = "satadeep.dasgupta@brainiuminfotech.com" },
 ]
