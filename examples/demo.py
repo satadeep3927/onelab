@@ -1,11 +1,12 @@
-import sys
 import os
+import sys
+
 import torchaudio as ta
 
 # Add src to path so we can import onelab without installing it
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from onelab import OneLab, ConversationInput
+from onelab import ConversationInput, OneLab
 
 # Initialize the library
 # We point root_dir to the project root (one level up) so it can find the 'sample' folder

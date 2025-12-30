@@ -1,24 +1,26 @@
-import os
 import logging
-from typing import List, Dict, Optional, Union
+import os
+from typing import List
+
 import torch
-import torchaudio as ta
 from chatterbox.tts_turbo import ChatterboxTurboTTS
+
 from .podcast import Podcast
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("OneLabTTS")
+
 
 class TextToSpeech:
     def __init__(self, device: str = "cpu", root_dir: str = "."):
         """
         Initialize the TextToSpeech library.
-        
+
         Args:
             device: Device to run the model on ("cpu" or "cuda").
             root_dir: Root directory for resolving relative paths (like sample/charlie.wav).
@@ -26,11 +28,11 @@ class TextToSpeech:
         logger.info(f"Initializing TextToSpeech on {device}...")
         self.model = ChatterboxTurboTTS.from_pretrained(device=device)
         self.root_dir = os.path.abspath(root_dir)
-        
+
         # Dynamically load voices from the sample directory
         self.voice_map = {}
         sample_dir = os.path.join(self.root_dir, "sample")
-        
+
         if os.path.exists(sample_dir):
             logger.info(f"Scanning for voices in {sample_dir}...")
             for file in os.listdir(sample_dir):
@@ -38,10 +40,14 @@ class TextToSpeech:
                     voice_name = os.path.splitext(file)[0]
                     # Store relative path to keep it consistent with root_dir usage in Podcast
                     self.voice_map[voice_name] = os.path.join("sample", file)
-            logger.info(f"Found {len(self.voice_map)} voices: {list(self.voice_map.keys())}")
+            logger.info(
+                f"Found {len(self.voice_map)} voices: {list(self.voice_map.keys())}"
+            )
         else:
-            logger.warning(f"Sample directory not found at {sample_dir}. No voices loaded.")
-        
+            logger.warning(
+                f"Sample directory not found at {sample_dir}. No voices loaded."
+            )
+
         self.podcast = Podcast(self.model, self.voice_map, self.root_dir)
         logger.info("TextToSpeech initialized.")
 

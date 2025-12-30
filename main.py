@@ -1,7 +1,8 @@
 import torchaudio as ta
+
 # When installed, import directly from onelab
 # For development without install, you might need: import sys; sys.path.append('src')
-from onelab import OneLab, ConversationInput
+from onelab import ConversationInput, OneLab
 
 # Initialize the library
 onelab = OneLab(device="cpu", root_dir=".")

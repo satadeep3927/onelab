@@ -2,3 +2,7 @@ torch
 torchaudio
 chatterbox-tts
 pydantic
+
+black
+isort
+ruff
