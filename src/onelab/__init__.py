@@ -13,8 +13,8 @@ logging.basicConfig(
 
 
 class OneLab:
-    def __init__(self, device: str = "cpu", root_dir: str = "."):
-        self.tts = TextToSpeech(device=device, root_dir=os.path.abspath(root_dir))
+    def __init__(self, device: str = "cpu"):
+        self.tts = TextToSpeech(device=device)
 
 
 __all__ = ["OneLab", "ConversationInput", "Segment"]

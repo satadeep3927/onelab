@@ -9,7 +9,7 @@ description = "A Text-to-Speech and Podcast generation library using Chatterbox 
 readme = "README.md"
 requires-python = ">=3.8"
 authors = [
-  { name = "OneLab Team", email = "info@onelab.ai" },
+  { name = "OneLab Team", email = "satadeep.dasgupta@brainiuminfotech.com" },
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -24,5 +24,8 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/onelab/onelab"
-"Bug Tracker" = "https://github.com/onelab/onelab/issues"
+"Homepage" = "https://github.com/satadeep3927/onelab"
+"Bug Tracker" = "https://github.com/satadeep3927/onelab/issues"
+
+[tool.setuptools.package-data]
+onelab = ["sample/*.wav"]

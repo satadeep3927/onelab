@@ -6,51 +6,37 @@ OneLab is a powerful Python library for Text-to-Speech (TTS) and Podcast generat
 
 *   **Text-to-Speech Conversion**: Convert individual text segments to audio using specific voices.
 *   **Podcast Generation**: Create full conversations with multiple speakers.
-*   **Dynamic Voice Loading**: Automatically detects available voices from a `sample` directory.
+*   **Dynamic Voice Loading**: Automatically detects available voices from the package's `sample` directory.
 *   **Custom Logging**: Detailed logging and progress tracking during generation.
 *   **Modular Design**: Clean and extensible architecture.
 
 ## Installation
 
-You can install the package using pip (once published) or directly from the source.
+You can install the package using pip:
 
-### From Source
+```bash
+pip install onelab
+```
 
-1.  Clone the repository.
-2.  Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    Or install the package in editable mode:
-    ```bash
-    pip install -e .
-    ```
+Or install directly from the source:
+
+```bash
+git clone https://github.com/satadeep3927/onelab.git
+cd onelab
+pip install .
+```
 
 ## Usage
 
 ### Initialization
 
-To use the library, you need to initialize the `OneLab` class. You must provide a `root_dir` which serves as the base path for looking up resources, specifically the `sample` directory containing voice samples.
+To use the library, simply initialize the `OneLab` class. The library automatically locates the bundled voice samples.
 
 ```python
-from src.onelab import OneLab
+from onelab import OneLab
 
 # Initialize OneLab
-# root_dir should point to the folder containing the 'sample' directory
-onelab = OneLab(device="cpu", root_dir=".") 
-```
-
-### What is `root_dir`?
-
-The `root_dir` parameter is the absolute or relative path to the project root or the directory where your assets are stored. The library expects a `sample` folder inside this `root_dir` containing `.wav` files for each voice (e.g., `charlie.wav`, `emilia.wav`).
-
-Structure expected:
-```
-root_dir/
-└── sample/
-    ├── charlie.wav
-    ├── emilia.wav
-    └── ...
+onelab = OneLab(device="cpu") 
 ```
 
 ### Listing Available Voices
@@ -78,7 +64,9 @@ torchaudio.save("output.wav", wav, onelab.tts.model.sr)
 To create a multi-speaker podcast, define your conversation segments and use the `podcast.create` method:
 
 ```python
-data = {
+from onelab import ConversationInput
+
+data: ConversationInput = {
     "segments": [
         {"voice": "charlie", "text": "Hello Emilia!"},
         {"voice": "emilia", "text": "Hi Charlie! How are you?"},
@@ -98,7 +86,7 @@ torchaudio.save("podcast.wav", podcast_wav, onelab.tts.model.sr)
 
 The main entry point for the library.
 
-*   `__init__(device: str = "cpu", root_dir: str = ".")`: Initializes the library.
+*   `__init__(device: str = "cpu")`: Initializes the library.
 
 ### `TextToSpeech` (accessed via `onelab.tts`)
 

@@ -17,19 +17,20 @@ logger = logging.getLogger("OneLabTTS")
 
 
 class TextToSpeech:
-    def __init__(self, device: str = "cpu", root_dir: str = "."):
+    def __init__(self, device: str = "cpu"):
         """
         Initialize the TextToSpeech library.
 
         Args:
             device: Device to run the model on ("cpu" or "cuda").
-            root_dir: Root directory for resolving relative paths (like sample/charlie.wav).
         """
         logger.info(f"Initializing TextToSpeech on {device}...")
         self.model = ChatterboxTurboTTS.from_pretrained(device=device)
-        self.root_dir = os.path.abspath(root_dir)
+        
+        # Determine the package directory where this file resides
+        self.root_dir = os.path.dirname(os.path.abspath(__file__))
 
-        # Dynamically load voices from the sample directory
+        # Dynamically load voices from the sample directory inside the package
         self.voice_map = {}
         sample_dir = os.path.join(self.root_dir, "sample")
 

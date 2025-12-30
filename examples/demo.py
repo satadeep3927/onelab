@@ -10,8 +10,7 @@ from onelab import ConversationInput, OneLab
 
 # Initialize the library
 # We point root_dir to the project root (one level up) so it can find the 'sample' folder
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-onelab = OneLab(device="cpu", root_dir=project_root)
+onelab = OneLab(device="cpu")
 tts = onelab.tts
 
 
