@@ -26,7 +26,7 @@ class TextToSpeech:
         """
         logger.info(f"Initializing TextToSpeech on {device}...")
         self.model = ChatterboxTurboTTS.from_pretrained(device=device)
-        
+
         # Determine the package directory where this file resides
         self.root_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -56,11 +56,34 @@ class TextToSpeech:
         """List all available voices."""
         return list(self.voice_map.keys())
 
-    def convert(self, text: str, voice: str) -> torch.Tensor:
+    def convert(
+        self,
+        text: str,
+        voice: str,
+        repetition_penalty: float = 1.2,
+        min_p: float = 0,
+        top_p: float = 0.95,
+        exaggeration: float = 0.5,
+        cfg_weight: float = 0,
+        temperature: float = 0.8,
+        top_k: int = 1000,
+        norm_loudness: bool = True,
+    ) -> torch.Tensor:
         """
         Convert a single text segment to speech.
         """
         logger.info(f"Converting text with voice '{voice}'...")
         path = self.podcast._get_audio_prompt_path(voice)
-        wav = self.model.generate(text, audio_prompt_path=path)
+        wav = self.model.generate(
+            text,
+            audio_prompt_path=path,
+            repetition_penalty=repetition_penalty,
+            min_p=min_p,
+            top_p=top_p,
+            exaggeration=exaggeration,
+            cfg_weight=cfg_weight,
+            temperature=temperature,
+            top_k=top_k,
+            norm_loudness=norm_loudness,
+        )
         return wav

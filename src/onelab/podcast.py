@@ -41,8 +41,8 @@ class Podcast:
         logger.info(f"Starting podcast creation with {total_segments} segments.")
 
         for i, segment in enumerate(args["segments"]):
-            voice = segment["voice"]
-            text = segment["text"]
+            voice = segment.voice
+            text = segment.text
 
             # Custom progress logging
             progress = (i + 1) / total_segments * 100
@@ -52,7 +52,18 @@ class Podcast:
 
             try:
                 prompt_path = self._get_audio_prompt_path(voice)
-                wav = self.model.generate(text, audio_prompt_path=prompt_path)
+                wav = self.model.generate(
+                    text,
+                    audio_prompt_path=prompt_path,
+                    repetition_penalty=segment.repetition_penalty,
+                    min_p=segment.min_p,
+                    top_p=segment.top_p,
+                    exaggeration=segment.exaggeration,
+                    cfg_weight=segment.cfg_weight,
+                    temperature=segment.temperature,
+                    top_k=segment.top_k,
+                    norm_loudness=segment.norm_loudness,
+                )
                 segments.append(wav)
             except Exception as e:
                 logger.error(f"Failed to generate segment {i+1}: {e}")
